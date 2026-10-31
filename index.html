@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shabeer Mohamed</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Shabeer Mohamed: Senior Full-Stack Engineer in Berlin. Node.js, NestJS, React, Next.js, React Native, Azure, AI-integrated search.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one narrow reading column; the hero carries a live request-path trace from the job-search system. */
+:root {
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --ink: #141a2e;
+  --muted: #5a6280;
+  --line: #dde1ee;
+  --accent: #2b4fd8;
+  --accent-soft: #e6ebfd;
+  --live: #1b8a5a;
+  --amber: #a8640c;
+  --amber-soft: #fbf0de;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1120; --surface: #151b30; --ink: #e8ebf7; --muted: #9aa3c4; --line: #262f4d;
+    --accent: #8aa2ff; --accent-soft: #1d2650; --live: #4fd69a; --amber: #f1b45a; --amber-soft: #33270f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1120; --surface: #151b30; --ink: #e8ebf7; --muted: #9aa3c4; --line: #262f4d;
+  --accent: #8aa2ff; --accent-soft: #1d2650; --live: #4fd69a; --amber: #f1b45a; --amber-soft: #33270f;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before { animation: none !important; transition: none !important; } }
+body {
+  background: var(--bg); color: var(--ink);
+  font: 16px/1.65 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 980px; margin: 0 auto; }
+
+/* Header */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+  margin-left: calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+  margin-right: calc(-1 * max(16px, env(safe-area-inset-right, 0px)));
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; flex-wrap: wrap; }
+.mark { font: 700 1.05rem/1 var(--display); letter-spacing: -0.01em; color: var(--ink); text-decoration: none; }
+.mark span { color: var(--accent); }
+nav { display: flex; gap: 18px; flex-wrap: wrap; }
+nav a { color: var(--muted); text-decoration: none; font-size: 0.9rem; }
+nav a:hover { color: var(--ink); }
+.status { display: inline-flex; align-items: center; gap: 8px; font: 500 0.78rem/1 var(--mono); color: var(--live); }
+.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--live); box-shadow: 0 0 0 4px color-mix(in srgb, var(--live) 22%, transparent); }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; padding-block: 72px 56px; }
+.hero > * { min-width: 0; }
+.eyebrow { font: 500 0.78rem/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+h1 { font: 800 clamp(2.5rem, 6vw, 4rem)/1.02 var(--display); letter-spacing: -0.035em; margin: 14px 0 18px; text-wrap: balance; }
+h1 em { font-style: normal; color: var(--accent); }
+.lede { color: var(--muted); font-size: 1.08rem; max-width: 34em; margin: 0 0 28px; }
+.links { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 8px;
+  font: 500 0.92rem/1 var(--body); text-decoration: none; cursor: pointer;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+}
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.btn:hover { border-color: var(--accent); }
+
+/* Request trace */
+.trace { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; font: 0.8rem/1.4 var(--mono); }
+.trace-head { display: flex; justify-content: space-between; color: var(--muted); margin-bottom: 14px; gap: 8px; flex-wrap: wrap; }
+.hop { display: grid; grid-template-columns: 14px 1fr auto; gap: 12px; align-items: start; position: relative; padding-bottom: 14px; }
+.hop:last-child { padding-bottom: 0; }
+.hop::before { content: ""; position: absolute; left: 6px; top: 16px; bottom: 0; width: 2px; background: var(--line); }
+.hop:last-child::before { display: none; }
+.dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--accent); background: var(--surface); margin-top: 2px; animation: pulse 3.2s ease-in-out infinite; }
+.hop:nth-child(2) .dot { animation-delay: .4s } .hop:nth-child(3) .dot { animation-delay: .8s } .hop:nth-child(4) .dot { animation-delay: 1.2s } .hop:nth-child(5) .dot { animation-delay: 1.6s }
+@keyframes pulse { 0%, 70%, 100% { background: var(--surface); } 15%, 35% { background: var(--accent); } }
+.hop b { display: block; font-weight: 500; color: var(--ink); }
+.hop small { color: var(--muted); font-size: 0.74rem; }
+.hop .tag { color: var(--accent); font-size: 0.72rem; white-space: nowrap; }
+.trace-foot { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line); color: var(--muted); font-size: 0.74rem; }
+
+/* Stats */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); border-block: 1px solid var(--line); }
+.stat { padding: 22px 18px; border-left: 1px solid var(--line); }
+.stat:first-child { border-left: 0; padding-left: 0; }
+.stat strong { display: block; font: 700 2rem/1 var(--display); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.stat span { color: var(--muted); font-size: 0.86rem; }
+
+/* Sections */
+section { padding-block: 72px 0; scroll-margin-top: 64px; }
+h2 { font: 700 clamp(1.6rem, 3.4vw, 2.1rem)/1.1 var(--display); letter-spacing: -0.02em; margin: 8px 0 28px; text-wrap: balance; }
+h3 { font: 700 1.2rem/1.25 var(--display); margin: 0; letter-spacing: -0.01em; }
+p { margin: 0; }
+
+/* Projects */
+.projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.proj { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.proj.feature { grid-column: 1 / -1; display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; }
+.proj.feature > * { min-width: 0; }
+.proj p { color: var(--muted); font-size: 0.95rem; }
+.proj ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: 0.93rem; display: grid; gap: 6px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; font: 500 0.72rem/1 var(--mono); padding: 5px 9px; border-radius: 999px; width: fit-content; }
+.pill.private { background: var(--amber-soft); color: var(--amber); }
+.pill.prod { background: var(--accent-soft); color: var(--accent); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+.tags span { font: 0.74rem/1 var(--mono); padding: 5px 8px; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); }
+.note { font: 0.8rem/1.5 var(--mono); color: var(--muted); border-left: 2px solid var(--amber); padding-left: 12px; }
+
+/* Timeline */
+.roles { display: grid; gap: 0; }
+.role { display: grid; grid-template-columns: 170px 1fr; gap: 28px; padding-block: 26px; border-top: 1px solid var(--line); }
+.role > * { min-width: 0; }
+.when { font: 0.82rem/1.5 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.when .place { display: block; margin-top: 4px; }
+.role .title { color: var(--accent); font-weight: 500; margin: 2px 0 10px; }
+.role ul { margin: 0; padding-left: 18px; color: var(--muted); display: grid; gap: 6px; font-size: 0.95rem; }
+
+/* Skills */
+.skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 32px; }
+.skills > div { min-width: 0; }
+.skills h4 { font: 500 0.76rem/1 var(--mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 0 0 12px; }
+.skills .tags { margin-top: 0; }
+.skills .tags span { color: var(--ink); background: var(--surface); }
+
+/* GitHub feed */
+.feed { display: grid; gap: 0; }
+.feed a { display: grid; grid-template-columns: 1fr auto; gap: 16px; padding: 12px 0; border-top: 1px solid var(--line); text-decoration: none; color: var(--ink); }
+.feed a small { color: var(--muted); font: 0.78rem var(--mono); white-space: nowrap; }
+
+/* Contact */
+.contact { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 40px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 32px; align-items: center; }
+.contact > * { min-width: 0; }
+.contact p { color: var(--muted); }
+.copyrow { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font: 0.92rem var(--mono); }
+.copyrow code { user-select: all; overflow-wrap: anywhere; }
+footer { padding-block: 48px 40px; color: var(--muted); font-size: 0.85rem; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+@media (max-width: 820px) {
+  .hero, .proj.feature, .contact { grid-template-columns: 1fr; }
+  .hero { padding-block: 44px 40px; gap: 32px; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .stat:nth-child(3) { border-left: 0; padding-left: 0; }
+  .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .projects, .skills { grid-template-columns: 1fr; }
+  .role { grid-template-columns: 1fr; gap: 8px; }
+  nav { display: none; }
+  .contact { padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#">shabeer<span>.</span>dev</a>
+    <nav aria-label="Sections">
+      <a href="#work">Work</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#contact">Contact</a>
+    </nav>
+    <span class="status">Open to senior roles · Berlin</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Senior Full-Stack Engineer · 12+ years</div>
+      <h1>I build platforms end to end, <em>from the search index to the app screen.</em></h1>
+      <p class="lede">Node.js, NestJS and TypeScript on the backend; React, Next.js and React Native on the front. Currently Tech Lead on a multi-tenant candidate platform at Adecco Group, running in 15+ countries, with AI-powered hybrid search on Azure.</p>
+      <div class="links">
+        <a class="btn primary" href="#contact">Get in touch</a>
+        <a class="btn" href="https://www.linkedin.com/in/shabeermohamed91/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="btn" id="gh-link" href="https://github.com/" target="_blank" rel="noopener" hidden>GitHub ↗</a>
+      </div>
+    </div>
+
+    <figure class="trace" aria-label="Request path of the job search API">
+      <div class="trace-head"><span>GET /jobs/search?q=…</span><span>runtime path</span></div>
+      <div class="hop"><span class="dot"></span><div><b>Candidate Portal</b><small>Next.js · Expo React Native</small></div><span class="tag">client</span></div>
+      <div class="hop"><span class="dot"></span><div><b>Azure API Management</b><small>gateway</small></div><span class="tag">edge</span></div>
+      <div class="hop"><span class="dot"></span><div><b>Job Search API</b><small>NestJS · validate, normalize, guardrails</small></div><span class="tag">node</span></div>
+      <div class="hop"><span class="dot"></span><div><b>Azure AI Search</b><small>BM25 + vector · semantic rerank</small></div><span class="tag">regional index</span></div>
+      <div class="hop"><span class="dot"></span><div><b>Response contract</b><small>mapped results · pagination</small></div><span class="tag">200 OK</span></div>
+      <div class="trace-foot">Indexed by RabbitMQ workers · GPT-4o skill extraction · text-embedding-3-large</div>
+    </figure>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><strong>12+</strong><span>years shipping web &amp; mobile</span></div>
+    <div class="stat"><strong>15+</strong><span>countries on one multi-tenant platform</span></div>
+    <div class="stat"><strong>100k+</strong><span>job applications / month per tenant</span></div>
+    <div class="stat"><strong>6</strong><span>developers led as Tech Lead</span></div>
+  </div>
+
+  <section id="work">
+    <div class="eyebrow">Selected work</div>
+    <h2>Projects and systems I've built</h2>
+    <div class="projects">
+
+      <article class="proj feature">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span class="pill private">● Private repo · in progress</span>
+          <h3>Career Next Role</h3>
+          <p>A personal AI-powered job-search assistant. It fetches job postings, analyses the job description with an LLM, and speeds up the decision of what to apply for.</p>
+          <div class="tags"><span>Python</span><span>HTTPX</span><span>httpcore</span><span>LLM integration</span><span>Security testing</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <ul>
+            <li>Backend job fetching with URL validation and controlled redirect handling.</li>
+            <li>Found and fixed a DNS-rebinding / SSRF vulnerability: destination IPs are validated and connections pinned, while TLS hostname and certificate checks stay intact.</li>
+            <li>Security regression tests for blocked IP ranges, DNS rebinding, redirects and HTTP fetching.</li>
+          </ul>
+          <p class="note">The code is in a private repository. Happy to walk through it on a call.</p>
+        </div>
+      </article>
+
+      <article class="proj">
+        <span class="pill prod">Production · Adecco Group</span>
+        <h3>Hybrid job search</h3>
+        <p>Candidates find relevant jobs even when their wording differs from the job description. Keyword (BM25) retrieval for precision, combined with vector similarity, query normalization and semantic reranking, balanced against embedding latency and cost.</p>
+        <div class="tags"><span>NestJS</span><span>Azure AI Search</span><span>Azure OpenAI</span><span>Embeddings</span></div>
+      </article>
+
+      <article class="proj">
+        <span class="pill prod">Production · Adecco Group</span>
+        <h3>Event-driven indexing pipeline</h3>
+        <p>RabbitMQ decouples job ingestion from indexing. TypeScript workers batch job updates, GPT-4o optimizes descriptions and extracts skills, and semantic chunks are embedded and indexed with country, brand and locale filters.</p>
+        <div class="tags"><span>RabbitMQ</span><span>Node.js</span><span>GPT-4o</span><span>Chunking</span></div>
+      </article>
+
+      <article class="proj">
+        <span class="pill prod">Production · Adecco Group</span>
+        <h3>Candidate Portal, web &amp; mobile</h3>
+        <p>Led the move from legacy React and Capacitor to Next.js on the web and Expo React Native on mobile, with Redux and RTK Query, real-time state over Socket.IO, and Salesforce integrations through Azure Functions.</p>
+        <div class="tags"><span>Next.js</span><span>Expo</span><span>RTK Query</span><span>Socket.IO</span><span>Tailwind</span></div>
+      </article>
+
+      <article class="proj">
+        <span class="pill prod">Production · Adecco Group</span>
+        <h3>AI pull-request review agent</h3>
+        <p>An agent that reviews pull requests across multiple repositories, surfacing likely defects, risky patterns and missing tests early, so human reviewers can focus on correctness, architecture and security.</p>
+        <div class="tags"><span>LLM APIs</span><span>Code review</span><span>Automation</span></div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="github" hidden>
+    <div class="eyebrow">Latest from GitHub</div>
+    <h2>Recent activity</h2>
+    <div class="feed" id="feed"></div>
+  </section>
+
+  <section id="experience">
+    <div class="eyebrow">Career</div>
+    <h2>Experience</h2>
+    <div class="roles">
+      <div class="role">
+        <div class="when">Jan 2022 – now<span class="place">Berlin, DE</span></div>
+        <div>
+          <h3>Adecco Group</h3>
+          <div class="title">Senior Software Engineer · Tech Lead</div>
+          <ul>
+            <li>Multi-tenant candidate and recruiter platform in 15+ countries on web and mobile.</li>
+            <li>Designed the hybrid job search and worked on its event-driven indexing pipeline on Azure AI Search and Azure OpenAI.</li>
+            <li>TypeScript/Node.js REST APIs with PostgreSQL, Prisma and Zod; Hapi to NestJS modernization; OpenAPI contracts for other teams.</li>
+            <li>Lead a team of 6: migrations, mentoring, PR and UI/UX design reviews, technical refinement with product.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="role">
+        <div class="when">Jul 2021 – Dec 2021<span class="place">Munich, DE</span></div>
+        <div>
+          <h3>Jochen Schweizer mydays Group</h3>
+          <div class="title">Software Engineer, Backend</div>
+          <ul>
+            <li>NestJS APIs for micro-frontend e-commerce apps on Kubernetes.</li>
+            <li>Kafka integrations syncing the Pimcore product catalogue to downstream services.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="role">
+        <div class="when">Jun 2017 – Jun 2021<span class="place">Dubai, UAE</span></div>
+        <div>
+          <h3>Mashreq Bank</h3>
+          <div class="title">Senior Digital Specialist · Digital Banking Engineering</div>
+          <ul>
+            <li>Mashreq Neo digital onboarding: web onboarding, a tablet runner app and an operations fulfilment app.</li>
+            <li>OCR/MRZ and Emirates ID integration for identity capture; Chat Banking across WhatsApp, Messenger, web and app.</li>
+            <li>Moved C#/.NET monoliths to Node.js and Java microservices on AKS.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="role">
+        <div class="when">Mar 2016 – Apr 2017<span class="place">Chennai, IN</span></div>
+        <div>
+          <h3>Sasken Communication Technologies</h3>
+          <div class="title">Application Engineer</div>
+          <ul><li>Real-time IoT dashboards with Node.js services consuming live device data; MEAN stack apps.</li></ul>
+        </div>
+      </div>
+      <div class="role">
+        <div class="when">Jan 2013 – Dec 2015<span class="place">Chennai, IN</span></div>
+        <div>
+          <h3>Cognizant · Softcrylic</h3>
+          <div class="title">Programmer Analyst · Programmer</div>
+          <ul><li>Full-stack web apps on the MEAN stack and PHP (Zend, Laravel, CodeIgniter) with MySQL, Oracle and MongoDB.</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="eyebrow">Toolbox</div>
+    <h2>Skills</h2>
+    <div class="skills">
+      <div><h4>Backend &amp; APIs</h4><div class="tags"><span>Node.js</span><span>NestJS</span><span>Express</span><span>TypeScript</span><span>REST</span><span>GraphQL</span><span>Zod</span><span>Python / FastAPI</span></div></div>
+      <div><h4>Frontend &amp; Mobile</h4><div class="tags"><span>React</span><span>Next.js</span><span>React Native</span><span>Expo</span><span>Redux / RTK Query</span><span>Angular</span><span>Tailwind CSS</span></div></div>
+      <div><h4>Data &amp; Messaging</h4><div class="tags"><span>PostgreSQL</span><span>Prisma</span><span>Redis</span><span>MongoDB</span><span>RabbitMQ</span><span>Kafka</span><span>Azure Service Bus</span></div></div>
+      <div><h4>AI &amp; Search</h4><div class="tags"><span>Azure OpenAI</span><span>Azure AI Search</span><span>Embeddings</span><span>Hybrid search</span><span>LLM APIs</span></div></div>
+      <div><h4>Cloud &amp; Delivery</h4><div class="tags"><span>Azure</span><span>Azure Functions</span><span>Front Door / CDN</span><span>Docker</span><span>Kubernetes / AKS</span><span>Terraform</span><span>Azure DevOps</span></div></div>
+      <div><h4>Practice</h4><div class="tags"><span>Jest</span><span>Vitest</span><span>Observability</span><span>System design</span><span>Tech leadership</span></div></div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact">
+      <div>
+        <div class="eyebrow">Get in touch</div>
+        <h2 style="margin-bottom:12px">Hiring for a senior full-stack role?</h2>
+        <p>Based in Berlin with permanent residence, no sponsorship needed. Open to on-site, hybrid and remote roles.</p>
+      </div>
+      <div style="display:grid;gap:14px">
+        <div class="copyrow"><code id="email">shamoh19@gmail.com</code><button class="btn" id="copy" type="button">Copy</button></div>
+        <div class="links">
+          <a class="btn primary" href="mailto:shamoh19@gmail.com">Email me</a>
+          <a class="btn" href="https://www.linkedin.com/in/shabeermohamed91/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Shabeer Mohamed</span>
+    <span>B.Tech Information Technology, Anna University (2012)</span>
+  </footer>
+</main>
+
+<script>
+// Set your GitHub username to show the profile link and a live activity feed.
+const GITHUB_USER = "";
+
+document.getElementById("copy").addEventListener("click", async (e) => {
+  const text = document.getElementById("email").textContent;
+  try { await navigator.clipboard.writeText(text); e.target.textContent = "Copied"; }
+  catch { const r = document.createRange(); r.selectNodeContents(document.getElementById("email")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  setTimeout(() => (e.target.textContent = "Copy"), 1800);
+});
+
+if (GITHUB_USER) {
+  const link = document.getElementById("gh-link");
+  link.href = `https://github.com/${GITHUB_USER}`;
+  link.hidden = false;
+  fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=pushed&per_page=6`)
+    .then((r) => (r.ok ? r.json() : []))
+    .then((repos) => {
+      if (!repos.length) return;
+      const feed = document.getElementById("feed");
+      for (const repo of repos) {
+        const a = document.createElement("a");
+        a.href = repo.html_url; a.target = "_blank"; a.rel = "noopener";
+        const name = document.createElement("span");
+        name.textContent = repo.name + (repo.description ? " · " + repo.description : "");
+        const when = document.createElement("small");
+        when.textContent = repo.language ? `${repo.language} · ${new Date(repo.pushed_at).toLocaleDateString()}` : new Date(repo.pushed_at).toLocaleDateString();
+        a.append(name, when);
+        feed.append(a);
+      }
+      document.getElementById("github").hidden = false;
+    })
+    .catch(() => {});
+}
+</script>
+</body>
+</html>
