@@ -191,7 +191,7 @@ footer { padding-block: 48px 40px; color: var(--muted); font-size: 0.85rem; disp
       <div class="links">
         <a class="btn primary" href="#contact">Get in touch</a>
         <a class="btn" href="https://www.linkedin.com/in/shabeermohamed91/" target="_blank" rel="noopener">LinkedIn ↗</a>
-        <a class="btn" id="gh-link" href="https://github.com/" target="_blank" rel="noopener" hidden>GitHub ↗</a>
+        <a class="btn" id="gh-link" href="https://github.com/shamoh19" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
     </div>
 
@@ -267,8 +267,8 @@ footer { padding-block: 48px 40px; color: var(--muted); font-size: 0.85rem; disp
   </section>
 
   <section id="github" hidden>
-    <div class="eyebrow">Latest from GitHub</div>
-    <h2>Recent activity</h2>
+    <div class="eyebrow">GitHub</div>
+    <h2>Public repositories</h2>
     <div class="feed" id="feed"></div>
   </section>
 
@@ -356,6 +356,7 @@ footer { padding-block: 48px 40px; color: var(--muted); font-size: 0.85rem; disp
         <div class="links">
           <a class="btn primary" href="mailto:shamoh19@gmail.com">Email me</a>
           <a class="btn" href="https://www.linkedin.com/in/shabeermohamed91/" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a class="btn" href="https://github.com/shamoh19" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
       </div>
     </div>
@@ -369,7 +370,7 @@ footer { padding-block: 48px 40px; color: var(--muted); font-size: 0.85rem; disp
 
 <script>
 // Set your GitHub username to show the profile link and a live activity feed.
-const GITHUB_USER = "";
+const GITHUB_USER = "shamoh19";
 
 document.getElementById("copy").addEventListener("click", async (e) => {
   const text = document.getElementById("email").textContent;
@@ -382,9 +383,11 @@ if (GITHUB_USER) {
   const link = document.getElementById("gh-link");
   link.href = `https://github.com/${GITHUB_USER}`;
   link.hidden = false;
-  fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=pushed&per_page=6`)
+  fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=pushed&per_page=50`)
     .then((r) => (r.ok ? r.json() : []))
-    .then((repos) => {
+    .then((all) => {
+      // Only repos you created: forks would read as your own work.
+      const repos = all.filter((r) => !r.fork && r.name !== `${GITHUB_USER}.github.io`).slice(0, 5);
       if (!repos.length) return;
       const feed = document.getElementById("feed");
       for (const repo of repos) {
